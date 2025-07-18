@@ -17,9 +17,9 @@ $request = Services::request();
 <head>
     <meta charset="utf-8">
     <base href="<?= base_url() ?>">
-    <title><?= esc($config['company']) . ' | ' . lang('Common.powered_by') . ' OSPOS ' . esc(config('App')->application_version) ?></title>
+    <title><?= esc($config['company']) . ' | ' . lang('Common.powered_by') . ' E&P POS ' . esc(config('App')->application_version) ?></title>
     <link rel="shortcut icon" type="image/x-icon" href="images/favicon.ico">
-    <link rel="stylesheet" href="<?= 'resources/bootswatch/' . (empty($config['theme']) ? 'flatly' : esc($config['theme'])) . '/bootstrap.min.css' ?>">
+    <link rel="stylesheet" href="<?= 'resources/bootswatch/' . (empty($config['theme']) ? 'Minty' : esc($config['theme'])) . '/bootstrap.min.css' ?>">
 
     <?php if (ENVIRONMENT == 'development' || get_cookie('debug') == 'true' || $request->getGet('debug') == 'true') : ?>
         <!-- inject:debug:css -->
@@ -395,7 +395,7 @@ $request = Services::request();
                         <span class="icon-bar"></span>
                     </button>
 
-                    <a class="navbar-brand hidden-sm" href="<?= site_url() ?>">OSPOS</a>
+                    <a class="navbar-brand hidden-sm" href="<?= site_url() ?>">E&P</a>
                 </div>
 
                 <div class="navbar-collapse collapse">
