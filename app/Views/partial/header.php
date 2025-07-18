@@ -88,9 +88,6 @@ $request = Services::request();
         <!-- Tweaks to the UI for a particular theme should drop here  -->
         <?php if ($config['theme'] != 'flatly' && file_exists($_SERVER['DOCUMENT_ROOT'] . '/public/css/' . esc($config['theme']) . '.css')) { ?>
             <link rel="stylesheet" href="<?= 'css/' . esc($config['theme']) . '.css' ?>">
-            <!-- Add after the last existing CSS link -->
-            <link rel="stylesheet" type="text/css" href="<?php echo base_url('css/custom-theme.css'); ?>"/>
-
         <?php } ?>
         <!-- inject:prod:js -->
         <script src="resources/jquery-2c872dbe60.min.js"></script>
