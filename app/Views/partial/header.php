@@ -414,8 +414,29 @@ $request = Services::request();
                             </li>
                         <?php endforeach; ?>
                         
+                        <?php foreach ($allowed_modules as $module): ?>
+                            <li class="<?= $module->module_id == $request->getUri()->getSegment(1) ? 'active' : '' ?>">
+                                <a href="<?= base_url($module->module_id) ?>" title="<?= lang("Module.$module->module_id") ?>" class="menu-icon">
+                                    <img src="<?= base_url("images/menubar/$module->module_id.svg") ?>" style="border: none;" alt="Module Icon"><br>
+                                    <?= lang('Module.' . $module->module_id) ?>
+                                </a>
+                            </li>
+                        <?php endforeach; ?>
+                        
                         <!-- Outlets Menu Added Here -->
-                        <?php if(has_module_permission('config', session()->get('person_id'))): ?>
+                        <?php 
+                        // Check if user has config module permission
+                        $hasConfigPermission = false;
+                        if (isset($allowed_modules)) {
+                            foreach ($allowed_modules as $module) {
+                                if ($module->module_id == 'config') {
+                                    $hasConfigPermission = true;
+                                    break;
+                                }
+                            }
+                        }
+                        ?>
+                        <?php if($hasConfigPermission): ?>
                             <li class="<?= $request->getUri()->getSegment(1) == 'outlets' ? 'active' : '' ?>">
                                 <a href="<?= base_url('outlets') ?>" title="Outlet Management" class="menu-icon">
                                     <span style="font-size: 24px;">🏪</span><br>
@@ -423,6 +444,7 @@ $request = Services::request();
                                 </a>
                             </li>
                         <?php endif; ?>
+
                     </ul>
                 </div>
             </div>
