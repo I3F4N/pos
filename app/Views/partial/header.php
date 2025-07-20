@@ -373,17 +373,20 @@ $request = Services::request();
                     <div id="liveclock"><?= date($config['dateformat'] . ' ' . $config['timeformat']) ?></div>
                 </div>
 
+
                 <div class="navbar-right" style="margin: 0;">
                     <?= anchor("home/changePassword/$user_info->person_id", "$user_info->first_name $user_info->last_name", ['class' => 'modal-dlg', 'data-btn-submit' => lang('Common.submit'), 'title' => lang('Employees.change_password')]) ?>
                     <span>&nbsp;|&nbsp;</span>
                     <?= anchor('home/logout', lang('Login.logout')) ?>
                 </div>
 
+
                 <div class="navbar-center" style="text-align: center;">
                     <strong><?= esc($config['company']) ?></strong>
                 </div>
             </div>
         </div>
+
 
         <div class="navbar navbar-default" role="navigation">
             <div class="container">
@@ -395,8 +398,10 @@ $request = Services::request();
                         <span class="icon-bar"></span>
                     </button>
 
+
                     <a class="navbar-brand hidden-sm" href="<?= site_url() ?>">E&P</a>
                 </div>
+
 
                 <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav navbar-right">
@@ -408,10 +413,21 @@ $request = Services::request();
                                 </a>
                             </li>
                         <?php endforeach; ?>
+                        
+                        <!-- Outlets Menu Added Here -->
+                        <?php if(has_module_permission('config', session()->get('person_id'))): ?>
+                            <li class="<?= $request->getUri()->getSegment(1) == 'outlets' ? 'active' : '' ?>">
+                                <a href="<?= base_url('outlets') ?>" title="Outlet Management" class="menu-icon">
+                                    <span style="font-size: 24px;">🏪</span><br>
+                                    Outlets
+                                </a>
+                            </li>
+                        <?php endif; ?>
                     </ul>
                 </div>
             </div>
         </div>
+
 
         <div class="container">
             <div class="row">
