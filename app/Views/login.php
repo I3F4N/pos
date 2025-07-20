@@ -30,7 +30,7 @@
     <link rel="stylesheet" href="css/login.css">
     <meta name="theme-color" content="#2c3e50">
 
-    <style>
+<style>
     body {
         background-color: #FFFFEE;
         font-family: 'Segoe UI', sans-serif;
