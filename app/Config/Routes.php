@@ -11,6 +11,12 @@ $routes->get('/', 'Login::index');
 $routes->get('login', 'Login::index');
 $routes->post('login', 'Login::index');
 
+// Add outlet routes here - AFTER login routes but BEFORE other routes
+$routes->get('outlets', 'Outlets::index');
+$routes->get('outlets/index', 'Outlets::index');
+$routes->post('outlets/get_outlets', 'Outlets::get_outlets');
+$routes->get('outlets/view/(:num)', 'Outlets::view/$1');
+
 $routes->add('no_access/index/(:segment)', 'No_access::index/$1');
 $routes->add('no_access/index/(:segment)/(:segment)', 'No_access::index/$1/$2');
 
