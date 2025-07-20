@@ -14,7 +14,7 @@ use CodeIgniter\Config\BaseConfig;
 class OSPOS extends BaseConfig
 {
     public array $settings;
-    public string $commit_sha1 = '5f395d';    // TODO: Travis scripts need to be updated to replace this with the commit hash on build
+    public string $commit_sha1 = '1.5';    // TODO: Travis scripts need to be updated to replace this with the commit hash on build
     private CacheInterface $cache;
 
     public function __construct()
