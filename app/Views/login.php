@@ -1,3 +1,123 @@
+<style>
+    html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+        background: #FFFFEE;
+        font-family: 'Segoe UI', sans-serif;
+    }
+    body {
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+    }
+    /* Top logo styling */
+    img[alt*="logo"],
+    img[src*="logo"] {
+        max-width: 300px;
+        margin-bottom: 24px;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    /* Welcome header */
+    h1 {
+        text-align: center;
+        color: #66b2b2;
+        font-size: 24px;
+        font-weight: 600;
+        margin: 0 0 24px 0;
+    }
+    /* The login form itself */
+    form[action*="login"] {
+        background: #fff;
+        border-radius: 12px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+        padding: 36px 32px;
+        max-width: 375px;
+        min-width: 240px;
+        width: 100%;
+        box-sizing: border-box;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+    }
+    /* Username & password input groups */
+    .input-group {
+        display: flex;
+        align-items: center;
+        margin-bottom: 18px;
+    }
+    .input-group-addon, .input-group-text {
+        background: #f8f9fa;
+        color: #6c757d;
+        border: 1px solid #ced4da;
+        border-radius: 8px 0 0 8px;
+        padding: 12px 16px;
+        font-size: 18px;
+    }
+    .form-control, input[type="text"], input[type="password"] {
+        border: 1px solid #ced4da;
+        border-left: none;
+        border-radius: 0 8px 8px 0;
+        padding: 12px 15px;
+        font-size: 16px;
+        background: #fff;
+        width: 100%;
+        box-sizing: border-box;
+        transition: border-color 0.2s;
+    }
+    .form-control:focus {
+        outline: none;
+        border-color: #008080;
+        box-shadow: 0 0 0 0.1rem #66b2b2;
+    }
+    /* Login button */
+    button[type="submit"], .btn-primary, input[type="submit"] {
+        margin-top: 14px;
+        background: #008080!important;
+        border: none!important;
+        color: #fff!important;
+        font-weight: bold;
+        border-radius: 8px;
+        padding: 14px 0;
+        font-size: 16px;
+        transition: background 0.3s;
+        width: 100%;
+    }
+    button[type="submit"]:hover, .btn-primary:hover, input[type="submit"]:hover {
+        background: #006666!important;
+    }
+    /* Error message alert styling */
+    .alert, .alert-danger {
+        background: #f8d7da;
+        color: #721c24;
+        border: 1px solid #f5c6cb;
+        border-radius: 8px;
+        padding: 12px 16px;
+        margin-bottom: 16px;
+        font-size: 15px;
+        text-align: center;
+    }
+    /* Responsive for mobile */
+    @media (max-width:600px) {
+        form[action*="login"] {
+            max-width: 95vw;
+            padding: 20px 7vw;
+        }
+        img[alt*="logo"],
+        img[src*="logo"] {
+            max-width: 200px;
+        }
+        h1 {
+            font-size: 18px;
+        }
+    }
+</style>
+
 <?php
 /**
  * @var bool $has_errors
@@ -29,164 +149,6 @@
     <link rel="stylesheet" href="resources/bootswatch5/<?= "$theme" ?>/bootstrap.min.css">
     <link rel="stylesheet" href="css/login.css">
     <meta name="theme-color" content="#2c3e50">
-    <style>
-        html, body {
-            height: 100%;
-            margin: 0;
-            padding: 0;
-            background-color: #FFFFEE;
-            font-family: 'Segoe UI', sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            overflow-x: hidden;
-        }
-
-        body {
-            min-height: 100vh;
-            padding: 20px 0;
-            flex-direction: column;
-        }
-
-        #logo, .logo-container {
-            width: 100%;
-            max-width: 320px;
-            margin: 0 auto 40px auto;
-            text-align: center;
-        }
-
-        #logo img, .logo-container img {
-            max-width: 100%;
-            height: auto;
-            display: inline-block;
-        }
-
-        #login {
-            background: #fff;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-            border-radius: 12px;
-            padding: 40px 35px;
-            width: 100%;
-            max-width: 450px;
-            box-sizing: border-box;
-            margin: 0 auto;
-        }
-
-        h1 {
-            margin: 0 0 30px 0;
-            font-size: 24px;
-            font-weight: 600;
-            color: #66b2b2;
-            text-align: center;
-            line-height: 1.2;
-        }
-
-        .form-group {
-            margin-bottom: 25px;
-        }
-
-        label {
-            display: block;
-            font-weight: 500;
-            margin-bottom: 8px;
-            color: #333;
-            font-size: 14px;
-        }
-
-        .input-group {
-            display: flex;
-            width: 100%;
-            position: relative;
-            margin-bottom: 0;
-        }
-
-        .input-group-addon, .input-group-text {
-            background-color: #f8f9fa;
-            border: 1px solid #ced4da;
-            border-right: none;
-            border-radius: 8px 0 0 8px;
-            padding: 12px 15px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            min-width: 45px;
-            color: #6c757d;
-        }
-
-        .form-control, input[type="text"], input[type="password"] {
-            border: 1px solid #ced4da;
-            border-left: none;
-            border-radius: 0 8px 8px 0;
-            padding: 12px 15px;
-            font-size: 16px;
-            width: 100%;
-            box-sizing: border-box;
-            transition: border-color 0.3s ease;
-            height: auto;
-        }
-
-        .form-control:focus, input:focus {
-            outline: none;
-            border-color: #008080;
-            box-shadow: 0 0 0 0.2rem rgba(0, 128, 128, 0.15);
-        }
-
-        .btn-primary, button[type="submit"] {
-            background-color: #008080 !important;
-            border: none !important;
-            border-radius: 8px;
-            padding: 15px 20px;
-            font-weight: bold;
-            font-size: 16px;
-            color: white !important;
-            width: 100%;
-            cursor: pointer;
-            margin-top: 20px;
-            transition: all 0.3s ease;
-            text-transform: none;
-            display: block;
-            text-align: center;
-        }
-
-        .btn-primary:hover, button[type="submit"]:hover {
-            background-color: #006666 !important;
-            transform: translateY(-1px);
-            box-shadow: 0 4px 12px rgba(0, 128, 128, 0.3);
-        }
-
-        .alert-danger, #error-message, .error-message {
-            background-color: #f8d7da;
-            color: #721c24;
-            border: 1px solid #f5c6cb;
-            border-radius: 8px;
-            padding: 12px 15px;
-            margin-bottom: 20px;
-            font-size: 14px;
-            text-align: center;
-        }
-
-        @media (max-width: 576px) {
-            body {
-                padding: 10px;
-                justify-content: flex-start;
-            }
-            #login {
-                max-width: 100%;
-                padding: 30px 20px;
-                border-radius: 12px;
-                box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-            }
-            #logo {
-                max-width: 260px;
-                margin-bottom: 25px;
-            }
-            h1 {
-                font-size: 20px;
-                margin-bottom: 25px;
-            }
-        }
-    </style>
-
 
 
 </head>
@@ -198,7 +160,7 @@
                 <?php if (isset($config['company_logo']) && !empty($config['company_logo'])): ?>
                     <img class="logo w-100" src="<?= base_url('uploads/' . $config['company_logo']) ?>" alt="<?= lang('Common.logo') . '&nbsp;' . $config['company'] ?>">
                 <?php else: ?>
-                    <svg class="logo text-primary" role="img" viewBox="0 0 308.57998 308.57997" xmlns="http://www.w3.org/2000/svg">
+                    <svg class="logo text-primary" role="img" viewBox="0 0 308.57998 308.57997" xmlns="">
                         <title><?= lang('Common.software_title') . '&nbsp;' . lang('Common.logo') ?></title>
                         <circle cx="154.28999" cy="154.28999" r="154.28999" fill="currentColor" />
                         <path fill="#fff" d="M154.88998 145.66999c-.03-1.26-.03-3.29.19-4.29 4.6-11.1 15.57-18.82 28.3-18.82h.41v58.3c0 .12-.03.78-.04.9-.54 16.46-14.01 29.7-30.59 29.7v27.08c21 0 39.17-11.27 49.29-28.07l.07-.11c2.9.45 5.86.75 8.9.75 31.95 0 57.81-26 57.81-57.81 0-30.87-24.37-56.46-55.1-57.81h-30.74c-17.18 0-32.61 7.64-43.22 19.63-10.59-11.92-25.86-19.59-43.02-19.59-31.86 0-57.77 25.91-57.77 57.77 0 31.86 25.91 57.77 57.77 57.77 31.86 0 57.77-25.91 57.77-57.77v-3.68c-.01.01-.02-3.31-.03-3.95zm-57.75 38.33c-16.92 0-30.69-13.77-30.69-30.69s13.77-30.69 30.69-30.69 30.69 13.77 30.69 30.69-13.77 30.69-30.69 30.69zm142.96-19.87c-4.33 11.64-15.57 19.9-28.7 19.9h-.54v-61.47h.54c13.13 0 24.37 8.26 28.7 19.9 1.35 3.25 2.03 6.91 2.03 10.83s-.67 7.59-2.03 10.84z" />
