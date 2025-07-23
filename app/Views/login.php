@@ -1,100 +1,242 @@
 <?php
-// This is the login view file for OSPOS. It renders a simple login form using Bootstrap for styling.
-// We've fixed syntax issues, added proper HTML structure, and included basic custom styles for better appearance.
+/**
+ * @var bool $has_errors
+ * @var bool $is_latest
+ * @var string $latest_version
+ * @var bool $gcaptcha_enabled
+ * @var array $config
+ * @var $validation
+ */
 ?>
-<!DOCTYPE html>
-<html lang="en">
+
+<!doctype html>
+<html lang="<?= current_language_code() ?>">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?= lang('Common.software_title') . ' ' . lang('Common.logo') ?></title>
-    <!-- Link to Bootstrap CSS (fixed path using CodeIgniter's base_url() to avoid loading issues) -->
-    <link rel="stylesheet" href="<?= base_url('assets/css/bootstrap.min.css'); ?>">
-    
-    <!-- Custom styles: Added here to fix plain defaults. These center the form, style errors, and add button effects. -->
-    <!-- If you have an external custom.css, link it like: <link rel="stylesheet" href="<?= base_url('assets/css/custom.css'); ?>"> -->
-    <style>
+    <meta charset="utf-8">
+    <base href="<?= base_url() ?>">
+    <title><?= $config['company'] . '&nbsp;|&nbsp;' . lang('Common.software_short') . '&nbsp;|&nbsp;' .  lang('Login.login') ?></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="noindex, nofollow">
+    <link rel="shortcut icon" type="image/x-icon" href="images/favicon.ico">
+    <?php
+    $theme = (empty($config['theme'])
+        || 'paper' == $config['theme']
+        || 'readable' == $config['theme']
+        ? 'flatly'
+        : $config['theme']);
+    ?>
+    <link rel="stylesheet" href="resources/bootswatch5/<?= "$theme" ?>/bootstrap.min.css">
+    <link rel="stylesheet" href="css/login.css">
+    <meta name="theme-color" content="#2c3e50">
+
+<style>
+    body {
+        background-color: #FFFFEE;
+        font-family: 'Segoe UI', sans-serif;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+        min-height: 100vh;
+        margin: 0;
+        padding-top: 0px;
+        overflow-x: hidden;
+    }
+
+    html {
+        height: 100%;
+    }
+
+    #logo img {
+        max-width: 280px; /* Increased logo size */
+        width: 100%;
+        height: auto;
+        margin-bottom: -50px; /* More spacing */
+    }
+
+    #login {
+        background: #fff;
+        padding: 30px; /* Increased padding */
+        border-radius: 12px; /* Smoother corners */
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+        width: 100%;
+        max-width: 500px; /* Increased width */
+        box-sizing: border-box;
+        border: none !important; /* Remove any borders */
+    }
+
+    /* Form container adjustments */
+    #container {
+        padding: 0;
+        margin: 0;
+    }
+
+    #login_form .input-group {
+        margin-bottom: 22px; /* More spacing between fields */
+    }
+
+    #login_form input.form-control {
+        border-radius: 8px; /* Smoother input corners */
+        padding: 14px; /* Larger input fields */
+        height: auto;
+        font-size: 16px; /* Larger text */
+    }
+
+    #login_form .btn-primary {
+        background-color: #008080;
+        border: none;
+        border-radius: 8px;
+        padding: 14px; /* Larger button */
+        font-weight: bold;
+        font-size: 16px; /* Larger text */
+        transition: background-color 0.3s ease;
+        margin-top: 10px;
+    }
+
+    #login_form .btn-primary:hover {
+        background-color: #006666;
+    }
+
+    #error-message {
+        color: red;
+        text-align: center;
+        margin-bottom: 10px; /* More spacing */
+        font-size: 15px;
+    }
+
+    /* Override for h1 container */
+    #login > h1 {
+        text-align: center;
+        margin: 25px 0 0 0; /* Adjusted spacing */
+        padding: 0;
+        font-size: 20px; /* Larger text */
+        color: #66b2b2;
+        font-weight: 600;
+        background: transparent !important;
+        border: none !important;
+    }
+
+    /* Input group icons */
+    .input-group-addon {
+        background-color: #f8f9fa !important;
+        border-color: #ced4da !important;
+    }
+
+    @media (max-height: 700px) {
         body {
-            background-color: #f8f9fa; /* Light gray background for better contrast */
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh; /* Full viewport height for centering */
-            margin: 0;
+            padding-top: 0px;
         }
-        .login-form {
-            max-width: 400px; /* Limit form width for better mobile view */
-            padding: 20px;
-            background: white;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+
+        #login {
+            margin-top: 20px;
+            margin-bottom: 0px;
         }
-        .alert-danger {
-            margin-bottom: 20px; /* Add spacing below errors */
-            padding: 10px; /* Custom padding for error boxes */
-        }
-        .btn-primary {
-            width: 100%; /* Full-width button for touch-friendliness */
-            transition: background-color 0.3s; /* Smooth hover effect */
-        }
-        .btn-primary:hover {
-            background-color: #0056b3; /* Darker blue on hover (custom override) */
-        }
-        @media (max-width: 576px) { /* Responsive tweak for small screens */
-            .login-form {
-                padding: 15px;
-            }
-        }
-    </style>
+    }
+/* Add this right after your existing body styles */
+body {
+    overflow-y: auto; /* Allow vertical scrolling when needed */
+    padding-bottom: 0px; /* Add some bottom padding */
+}
+
+/* Add this at the end of your existing styles */
+@media screen and (min-height: 800px) {
+    body {
+        justify-content: center; /* Center vertically on taller screens */
+        padding-top: 20px;
+    }
+}
+
+#login {
+    margin-bottom: 20px; /* Ensure space at bottom */
+}
+</style>
 </head>
-<body>
-    <!-- Main login form container -->
-    <div class="login-form">
-        <h1 class="text-center"><?= lang('Login.welcome', [lang('Common.software_short')]) ?></h1>
-        
-        <!-- Display any errors (styled with custom padding) -->
-        <?php if ($this->session->flashdata('errors')): ?>
-            <div class="alert alert-danger">
-                <?php foreach ($this->session->flashdata('errors') as $error): ?>
-                    <p><?= $error ?></p>
-                <?php endforeach; ?>
+
+<body class="bg-secondary-subtle d-flex flex-column">
+    <main class="d-flex justify-content-around align-items-center flex-grow-1">
+        <div class="container-login container-fluid d-flex flex-column flex-md-row bg-body shadow rounded m-3 p-4 p-md-0">
+            <div class="box-logo d-flex flex-column justify-content-center align-items-center border-end border-secondary-subtle px-4 pb-3 p-md-4">
+                <?php if (isset($config['company_logo']) && !empty($config['company_logo'])): ?>
+                    <img class="logo w-100" src="<?= base_url('uploads/' . $config['company_logo']) ?>" alt="<?= lang('Common.logo') . '&nbsp;' . $config['company'] ?>">
+                <?php else: ?>
+                    <svg class="logo text-primary" role="img" viewBox="0 0 308.57998 308.57997" xmlns="http://www.w3.org/2000/svg">
+                        <title><?= lang('Common.software_title') . '&nbsp;' . lang('Common.logo') ?></title>
+                        <circle cx="154.28999" cy="154.28999" r="154.28999" fill="currentColor" />
+                        <path fill="#fff" d="M154.88998 145.66999c-.03-1.26-.03-3.29.19-4.29 4.6-11.1 15.57-18.82 28.3-18.82h.41v58.3c0 .12-.03.78-.04.9-.54 16.46-14.01 29.7-30.59 29.7v27.08c21 0 39.17-11.27 49.29-28.07l.07-.11c2.9.45 5.86.75 8.9.75 31.95 0 57.81-26 57.81-57.81 0-30.87-24.37-56.46-55.1-57.81h-30.74c-17.18 0-32.61 7.64-43.22 19.63-10.59-11.92-25.86-19.59-43.02-19.59-31.86 0-57.77 25.91-57.77 57.77 0 31.86 25.91 57.77 57.77 57.77 31.86 0 57.77-25.91 57.77-57.77v-3.68c-.01.01-.02-3.31-.03-3.95zm-57.75 38.33c-16.92 0-30.69-13.77-30.69-30.69s13.77-30.69 30.69-30.69 30.69 13.77 30.69 30.69-13.77 30.69-30.69 30.69zm142.96-19.87c-4.33 11.64-15.57 19.9-28.7 19.9h-.54v-61.47h.54c13.13 0 24.37 8.26 28.7 19.9 1.35 3.25 2.03 6.91 2.03 10.83s-.67 7.59-2.03 10.84z" />
+                    </svg>
+                <?php endif; ?>
             </div>
-        <?php endif; ?>
-        
-        <!-- Migration needed message (if applicable) -->
-        <?php if (isset($latest_version)): ?>
-            <div class="alert alert-warning">
-                <?= lang('Login.migration_needed', [$latest_version]) ?>
-            </div>
-        <?php endif; ?>
-        
-        <!-- The login form, using CodeIgniter's form_open() for CSRF protection -->
-        <?= form_open('login', ['id' => 'login_form', 'class' => 'form-horizontal']); ?>
-        
-        <div class="form-group">
-            <label for="username"><?= lang('Login.username') ?></label>
-            <div class="input-group">
-                <span class="input-group-addon"><?= lang('Common.icon') . ' ' . lang('Login.username') ?></span>
-                <input type="text" name="username" id="username" class="form-control" required aria-label="Username">
-            </div>
+            <section class="box-login d-flex flex-column justify-content-center align-items-center p-md-4">
+                <?= form_open('login') ?>
+                <h3 class="text-center m-0"><?= lang('Login.welcome', [lang('Common.software_short')]) ?></h3>
+                <?php if ($has_errors): ?>
+                    <?php foreach ($validation->getErrors() as $error): ?>
+                        <div class="alert alert-danger mt-3">
+                            <?= $error ?>
+                        </div>
+                    <?php endforeach; ?>
+                <?php endif; ?>
+                <?php if (!$is_latest): ?>
+                    <div class="alert alert-info mt-3">
+                        <?= lang('Login.migration_needed', [$latest_version]) ?>
+                    </div>
+                <?php endif; ?>
+                <?php if (empty($config['login_form']) || 'floating_labels' == ($config['login_form'])): ?>
+                    <div class="form-floating mt-3">
+                        <input class="form-control" id="input-username" name="username" type="text" placeholder="<?= lang('Login.username') ?>" <?php if (ENVIRONMENT == "testing") echo 'value="admin"'; ?>>
+                        <label for="input-username"><?= lang('Login.username') ?></label>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input class="form-control" id="input-password" name="password" type="password" placeholder="<?= lang('Login.password') ?>" <?php if (ENVIRONMENT == "testing") echo 'value="pointofsale"'; ?>>
+                        <label for="input-password"><?= lang('Login.password') ?></label>
+                    </div>
+                <?php elseif ('input_groups' == ($config['login_form'])): ?>
+                    <div class="input-group mt-3">
+                        <span class="input-group-text" id="input-username">
+                            <svg class="bi bi-person-fill" fill="currentColor" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+                                <title><?= lang('Common.icon') . '&nbsp;' . lang('Login.username') ?></title>
+                                <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6" />
+                            </svg>
+                        </span>
+                        <input class="form-control" name="username" type="text" placeholder="<?= lang('Login.username'); ?>" aria-label="<?= lang('Login.username') ?>" aria-describedby="input-username" <?php if (ENVIRONMENT == "testing") echo 'value="admin"'; ?>>
+                    </div>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="input-password">
+                            <svg class="bi bi-key-fill" fill="currentColor" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+                                <title><?= lang('Common.icon') . '&nbsp;' . lang('Login.password') ?></title>
+                                <path d="M3.5 11.5a3.5 3.5 0 1 1 3.163-5H14L15.5 8 14 9.5l-1-1-1 1-1-1-1 1-1-1-1 1H6.663a3.5 3.5 0 0 1-3.163 2M2.5 9a1 1 0 1 0 0-2 1 1 0 0 0 0 2" />
+                            </svg>
+                        </span>
+                        <input class="form-control" name="password" type="password" placeholder="<?= lang('Login.password') ?>" aria-label="<?= lang('Login.password') ?>" aria-describedby="input-password" <?php if (ENVIRONMENT == "testing") echo 'value="pointofsale"'; ?>>
+                    </div>
+                <?php endif; ?>
+                <?php
+                if ($gcaptcha_enabled) {
+                    echo '<script src="https://www.google.com/recaptcha/api.js"></script>';
+                    echo '<div class="g-recaptcha mb-3" style="text-align: center;" data-sitekey="' . $config['gcaptcha_site_key'] . '"></div>';
+                }
+                ?>
+                <div class="d-grid">
+                    <button class="btn btn-lg btn-primary" name="login-button" type="submit"><?= lang('Login.go') ?></button>
+                </div>
+                <?= form_close() ?>
+            </section>
         </div>
-        
-        <div class="form-group">
-            <label for="password"><?= lang('Login.password') ?></label>
-            <div class="input-group">
-                <span class="input-group-addon"><?= lang('Common.icon') . ' ' . lang('Login.password') ?></span>
-                <input type="password" name="password" id="password" class="form-control" required aria-label="Password">
-            </div>
+    </main>
+
+    <footer class="d-flex justify-content-center flex-shrink-0 text-center">
+        <div class="footer container-fluid bg-body rounded shadow p-3 mb-md-4 mx-md-3">
+            <span class="text-primary">
+                <svg height="1.25em" role="img" viewBox="0 0 308.57998 308.57997" xmlns="http://www.w3.org/2000/svg">
+                    <title><?= lang('Common.software_title') . '&nbsp;' . lang('Common.logo') ?></title>
+                    <circle cx="154.28999" cy="154.28999" r="154.28999" fill="currentColor" />
+                    <path fill="#fff" d="M154.88998 145.66999c-.03-1.26-.03-3.29.19-4.29 4.6-11.1 15.57-18.82 28.3-18.82h.41v58.3c0 .12-.03.78-.04.9-.54 16.46-14.01 29.7-30.59 29.7v27.08c21 0 39.17-11.27 49.29-28.07l.07-.11c2.9.45 5.86.75 8.9.75 31.95 0 57.81-26 57.81-57.81 0-30.87-24.37-56.46-55.1-57.81h-30.74c-17.18 0-32.61 7.64-43.22 19.63-10.59-11.92-25.86-19.59-43.02-19.59-31.86 0-57.77 25.91-57.77 57.77 0 31.86 25.91 57.77 57.77 57.77 31.86 0 57.77-25.91 57.77-57.77v-3.68c-.01.01-.02-3.31-.03-3.95zm-57.75 38.33c-16.92 0-30.69-13.77-30.69-30.69s13.77-30.69 30.69-30.69 30.69 13.77 30.69 30.69-13.77 30.69-30.69 30.69zm142.96-19.87c-4.33 11.64-15.57 19.9-28.7 19.9h-.54v-61.47h.54c13.13 0 24.37 8.26 28.7 19.9 1.35 3.25 2.03 6.91 2.03 10.83s-.67 7.59-2.03 10.84z" />
+                </svg>
+            </span>
+            <span><?= lang('Common.software_title') ?></span>
         </div>
-        
-        <!-- Any additional messages or links -->
-        <?php if (isset($some_condition)): ?> <!-- Replace with actual condition if needed -->
-            <p>Some additional info here.</p>
-        <?php endif; ?>
-        
-        <button type="submit" class="btn btn-primary"><?= lang('Login.go') ?></button>
-        
-        <?= form_close(); ?>
-    </div>
+    </footer>
 </body>
+
 </html>
