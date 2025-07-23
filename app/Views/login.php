@@ -36,189 +36,189 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: flex-start;
+            justify-content: center;
             min-height: 100vh;
             margin: 0;
-            padding-top: 0px;
+            padding: 20px 0;
             overflow-x: hidden;
-            overflow-y: auto; /* Allow vertical scrolling when needed */
-            padding-bottom: 20px; /* Add some bottom padding */
+            overflow-y: auto;
         }
 
         html {
             height: 100%;
         }
 
-        /* Logo styling - updated selectors for 3.4.1 */
-        #logo img, .logo img, .navbar-brand img {
-            max-width: 280px;
-            width: 100%;
-            height: auto;
-            margin-bottom: -50px;
+        /* Logo container - matches your target design */
+        .logo-container, #logo {
+            text-align: center;
+            margin-bottom: 30px;
         }
 
-        /* Main login container - multiple selectors for compatibility */
-        #login, .login-form, .card, .login-container {
+        .logo-container img, #logo img {
+            max-width: 320px;
+            width: 100%;
+            height: auto;
+            display: block;
+            margin: 0 auto;
+        }
+
+        /* Main login container - exact styling from your target */
+        #login, .login-form, .card {
             background: #fff;
-            padding: 30px;
-            border-radius: 12px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            padding: 40px 35px;
+            border-radius: 15px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
             width: 100%;
-            max-width: 500px;
+            max-width: 450px;
             box-sizing: border-box;
             border: none !important;
-            margin-bottom: 20px;
+            margin: 0 auto;
         }
 
-        /* Form container adjustments */
-        #container, .container-fluid {
-            padding: 0;
-            margin: 0;
-        }
-
-        /* Input groups - updated for 3.4.1 structure */
-        #login_form .input-group, 
-        .login-form .input-group,
-        form .input-group,
-        .form-group {
-            margin-bottom: 22px;
-        }
-
-        /* Form controls - broader selector coverage */
-        #login_form input.form-control,
-        .login-form input.form-control,
-        form input.form-control,
-        input[type="text"],
-        input[type="password"] {
-            border-radius: 8px;
-            padding: 14px;
-            height: auto;
-            font-size: 16px;
-            border: 1px solid #ced4da;
-            width: 100%;
-            box-sizing: border-box;
-        }
-
-        /* Button styling - multiple selectors */
-        #login_form .btn-primary,
-        .login-form .btn-primary,
-        form .btn-primary,
-        button[type="submit"],
-        .btn-primary {
-            background-color: #008080 !important;
-            border: none !important;
-            border-radius: 8px;
-            padding: 14px;
-            font-weight: bold;
-            font-size: 16px;
-            transition: background-color 0.3s ease;
-            margin-top: 10px;
-            width: 100%;
-            cursor: pointer;
-        }
-
-        #login_form .btn-primary:hover,
-        .login-form .btn-primary:hover,
-        form .btn-primary:hover,
-        button[type="submit"]:hover,
-        .btn-primary:hover {
-            background-color: #006666 !important;
-        }
-
-        /* Error messages - updated selectors */
-        #error-message,
-        .alert-danger,
-        .error,
-        .flash-message {
-            color: red;
+        /* Welcome heading */
+        h1, .login-title {
             text-align: center;
-            margin-bottom: 10px;
-            font-size: 15px;
-            padding: 10px;
-            border-radius: 4px;
-        }
-
-        /* Heading styles - broader coverage */
-        #login > h1,
-        .login-form > h1,
-        .card-header h1,
-        h1.login-title {
-            text-align: center;
-            margin: 25px 0 0 0;
+            margin: 0 0 30px 0;
             padding: 0;
-            font-size: 20px;
+            font-size: 24px;
             color: #66b2b2;
             font-weight: 600;
             background: transparent !important;
             border: none !important;
+            line-height: 1.2;
         }
 
-        /* Input group addons - 3.4.1 compatibility */
-        .input-group-addon,
-        .input-group-text,
-        .input-group-prepend .input-group-text {
-            background-color: #f8f9fa !important;
-            border-color: #ced4da !important;
-            border-radius: 8px 0 0 8px;
-        }
-
-        /* Fix for Bootstrap 4+ input group structure in 3.4.1 */
-        .input-group-prepend {
-            display: flex;
-            align-items: center;
-        }
-
-        .input-group-prepend + input {
-            border-left: none;
-            border-radius: 0 8px 8px 0;
+        /* Form groups */
+        .form-group {
+            margin-bottom: 25px;
+            position: relative;
         }
 
         /* Labels */
-        label {
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
             font-weight: 500;
-            margin-bottom: 5px;
             color: #333;
+            font-size: 14px;
         }
 
-        /* Focus states */
-        input:focus,
-        .form-control:focus {
+        /* Input groups */
+        .input-group {
+            position: relative;
+            display: flex;
+            width: 100%;
+            margin-bottom: 0;
+        }
+
+        /* Input group addons */
+        .input-group-addon, .input-group-text {
+            background-color: #f8f9fa;
+            border: 1px solid #ced4da;
+            border-right: none;
+            border-radius: 8px 0 0 8px;
+            padding: 12px 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 45px;
+            color: #6c757d;
+        }
+
+        /* Form controls */
+        .form-control, input[type="text"], input[type="password"] {
+            border: 1px solid #ced4da;
+            border-left: none;
+            border-radius: 0 8px 8px 0;
+            padding: 12px 15px;
+            font-size: 16px;
+            height: auto;
+            width: 100%;
+            box-sizing: border-box;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-control:focus, input:focus {
             outline: none;
             border-color: #008080;
-            box-shadow: 0 0 0 0.2rem rgba(0, 128, 128, 0.25);
+            box-shadow: 0 0 0 0.2rem rgba(0, 128, 128, 0.15);
+        }
+
+        /* Primary button - matches your target design */
+        .btn-primary, button[type="submit"] {
+            background-color: #008080 !important;
+            border: none !important;
+            border-radius: 8px;
+            padding: 15px 20px;
+            font-weight: bold;
+            font-size: 16px;
+            color: white !important;
+            width: 100%;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: all 0.3s ease;
+            text-transform: none;
+        }
+
+        .btn-primary:hover, button[type="submit"]:hover {
+            background-color: #006666 !important;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(0, 128, 128, 0.3);
+        }
+
+        /* Error messages */
+        .alert-danger, .error-message, #error-message {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+            border-radius: 8px;
+            padding: 12px 15px;
+            margin-bottom: 20px;
+            font-size: 14px;
+            text-align: center;
+        }
+
+        /* Footer text styling */
+        .footer-text {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 14px;
+            color: #66b2b2;
         }
 
         /* Responsive adjustments */
+        @media (max-width: 576px) {
+            body {
+                padding: 10px;
+            }
+            
+            #login, .login-form, .card {
+                padding: 30px 25px;
+                margin: 10px;
+            }
+            
+            .logo-container img, #logo img {
+                max-width: 250px;
+            }
+            
+            h1, .login-title {
+                font-size: 20px;
+            }
+        }
+
         @media (max-height: 700px) {
             body {
-                padding-top: 0px;
-            }
-
-            #login, .login-form, .card {
-                margin-top: 20px;
-                margin-bottom: 20px;
+                justify-content: flex-start;
+                padding-top: 40px;
             }
         }
 
-        @media screen and (min-height: 800px) {
-            body {
-                justify-content: center;
-                padding-top: 20px;
-            }
-        }
-
-        @media (max-width: 576px) {
-            #login, .login-form, .card {
-                margin: 10px;
-                padding: 20px;
-            }
-
-            #logo img, .logo img {
-                max-width: 200px;
-                margin-bottom: -30px;
-            }
+        /* Ensure proper spacing between elements */
+        .input-group + .input-group {
+            margin-top: 20px;
         }
     </style>
+
 
 </head>
 
