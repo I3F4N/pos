@@ -136,6 +136,49 @@
             margin-bottom: 20px;
         }
     }
+    /* Fix for input group and input width */
+    .input-group {
+        width: 100%;
+        display: flex;
+        align-items: stretch;
+        margin-bottom: 20px;
+    }
+    .input-group-addon,
+    .input-group-text {
+        min-width: 42px;
+        /* The rest of your existing styles */
+    }
+    .form-control,
+    input[type="text"],
+    input[type="password"] {
+        width: 100% !important;
+        min-width: 0;
+        flex: 1 1 0%;
+        border: 1px solid #ced4da;
+        padding: 12px 15px;
+        border-radius: 0 8px 8px 0;
+        font-size: 16px;
+        box-sizing: border-box;
+        background: #fff;
+    }
+    /* Ensure no unintentional width limitation from parent */
+    form[action*="login"], form#login_form, form[method="post"] {
+        width: 100%;
+        max-width: 375px;
+        min-width: 250px;
+        box-sizing: border-box;
+    }
+    @media (max-width:600px) {
+        .form-control,
+        input[type="text"],
+        input[type="password"] {
+            font-size: 15px;
+        }
+        form[action*="login"], form#login_form, form[method="post"] {
+            max-width: 95vw;
+            min-width: 150px;
+        }
+    }
 </style>
 
 
