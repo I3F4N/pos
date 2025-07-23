@@ -31,112 +31,191 @@
     <meta name="theme-color" content="#2c3e50">
     <style>
         body {
-            margin: 0;
-            padding: 0;
-            min-height: 100vh;
+            background-color: #FFFFEE;
+            font-family: 'Segoe UI', sans-serif;
             display: flex;
+            flex-direction: column;
             align-items: center;
-            justify-content: center;
-            font-family: Arial, sans-serif;
+            justify-content: flex-start;
+            min-height: 100vh;
+            margin: 0;
+            padding-top: 0px;
+            overflow-x: hidden;
+            overflow-y: auto; /* Allow vertical scrolling when needed */
+            padding-bottom: 20px; /* Add some bottom padding */
         }
-        
-        .container {
+
+        html {
+            height: 100%;
+        }
+
+        /* Logo styling - updated selectors for 3.4.1 */
+        #logo img, .logo img, .navbar-brand img {
+            max-width: 280px;
             width: 100%;
-            max-width: 400px;
-            margin: 0 auto;
-            padding: 20px;
+            height: auto;
+            margin-bottom: -50px;
         }
-        
-        .login-form {
-            background: white;
-            padding: 40px 30px;
-            border-radius: 10px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-            text-align: center;
+
+        /* Main login container - multiple selectors for compatibility */
+        #login, .login-form, .card, .login-container {
+            background: #fff;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
             width: 100%;
-            max-width: 350px;
-            margin: 0 auto;
-        }
-        
-        .login-form h1 {
-            margin-bottom: 30px;
-            font-size: 24px;
-            font-weight: 600;
-        }
-        
-        .form-group {
+            max-width: 500px;
+            box-sizing: border-box;
+            border: none !important;
             margin-bottom: 20px;
-            text-align: left;
         }
-        
-        .form-group label {
-            display: block;
-            margin-bottom: 5px;
-            font-weight: 500;
+
+        /* Form container adjustments */
+        #container, .container-fluid {
+            padding: 0;
+            margin: 0;
         }
-        
-        .input-group {
-            position: relative;
+
+        /* Input groups - updated for 3.4.1 structure */
+        #login_form .input-group, 
+        .login-form .input-group,
+        form .input-group,
+        .form-group {
+            margin-bottom: 22px;
+        }
+
+        /* Form controls - broader selector coverage */
+        #login_form input.form-control,
+        .login-form input.form-control,
+        form input.form-control,
+        input[type="text"],
+        input[type="password"] {
+            border-radius: 8px;
+            padding: 14px;
+            height: auto;
+            font-size: 16px;
+            border: 1px solid #ced4da;
             width: 100%;
-        }
-        
-        .input-group-addon {
-            position: absolute;
-            left: 12px;
-            top: 50%;
-            transform: translateY(-50%);
-            z-index: 2;
-            font-size: 14px;
-            opacity: 0.7;
-        }
-        
-        .form-control {
-            width: 100%;
-            padding: 12px 12px 12px 40px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            font-size: 14px;
             box-sizing: border-box;
         }
-        
+
+        /* Button styling - multiple selectors */
+        #login_form .btn-primary,
+        .login-form .btn-primary,
+        form .btn-primary,
+        button[type="submit"],
+        .btn-primary {
+            background-color: #008080 !important;
+            border: none !important;
+            border-radius: 8px;
+            padding: 14px;
+            font-weight: bold;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+            margin-top: 10px;
+            width: 100%;
+            cursor: pointer;
+        }
+
+        #login_form .btn-primary:hover,
+        .login-form .btn-primary:hover,
+        form .btn-primary:hover,
+        button[type="submit"]:hover,
+        .btn-primary:hover {
+            background-color: #006666 !important;
+        }
+
+        /* Error messages - updated selectors */
+        #error-message,
+        .alert-danger,
+        .error,
+        .flash-message {
+            color: red;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 15px;
+            padding: 10px;
+            border-radius: 4px;
+        }
+
+        /* Heading styles - broader coverage */
+        #login > h1,
+        .login-form > h1,
+        .card-header h1,
+        h1.login-title {
+            text-align: center;
+            margin: 25px 0 0 0;
+            padding: 0;
+            font-size: 20px;
+            color: #66b2b2;
+            font-weight: 600;
+            background: transparent !important;
+            border: none !important;
+        }
+
+        /* Input group addons - 3.4.1 compatibility */
+        .input-group-addon,
+        .input-group-text,
+        .input-group-prepend .input-group-text {
+            background-color: #f8f9fa !important;
+            border-color: #ced4da !important;
+            border-radius: 8px 0 0 8px;
+        }
+
+        /* Fix for Bootstrap 4+ input group structure in 3.4.1 */
+        .input-group-prepend {
+            display: flex;
+            align-items: center;
+        }
+
+        .input-group-prepend + input {
+            border-left: none;
+            border-radius: 0 8px 8px 0;
+        }
+
+        /* Labels */
+        label {
+            font-weight: 500;
+            margin-bottom: 5px;
+            color: #333;
+        }
+
+        /* Focus states */
+        input:focus,
         .form-control:focus {
             outline: none;
-            border-color: #007bff;
-            box-shadow: 0 0 5px rgba(0, 123, 255, 0.3);
+            border-color: #008080;
+            box-shadow: 0 0 0 0.2rem rgba(0, 128, 128, 0.25);
         }
-        
-        .btn-primary {
-            width: 100%;
-            padding: 12px;
-            font-size: 16px;
-            font-weight: 600;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            margin-top: 10px;
-            transition: all 0.3s ease;
-        }
-        
-        .btn-primary:hover {
-            transform: translateY(-1px);
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-        }
-        
-        .alert-danger {
-            padding: 12px;
-            margin-bottom: 20px;
-            border-radius: 5px;
-            text-align: left;
-        }
-        
-        @media (max-width: 480px) {
-            .login-form {
-                padding: 30px 20px;
-                margin: 20px;
+
+        /* Responsive adjustments */
+        @media (max-height: 700px) {
+            body {
+                padding-top: 0px;
             }
-            
-            .container {
-                padding: 10px;
+
+            #login, .login-form, .card {
+                margin-top: 20px;
+                margin-bottom: 20px;
+            }
+        }
+
+        @media screen and (min-height: 800px) {
+            body {
+                justify-content: center;
+                padding-top: 20px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            #login, .login-form, .card {
+                margin: 10px;
+                padding: 20px;
+            }
+
+            #logo img, .logo img {
+                max-width: 200px;
+                margin-bottom: -30px;
             }
         }
     </style>
@@ -151,7 +230,7 @@
                     <img class="logo w-100" src="<?= base_url('uploads/' . $config['company_logo']) ?>" alt="<?= lang('Common.logo') . '&nbsp;' . $config['company'] ?>">
                 <?php else: ?>
                     <svg class="logo text-primary" role="img" viewBox="0 0 308.57998 308.57997" xmlns="http://www.w3.org/2000/svg">
-                        <title><?= 'E&P POS' ?></title>
+                        <title><?= lang('Common.software_title') . '&nbsp;' . lang('Common.logo') ?></title>
                         <circle cx="154.28999" cy="154.28999" r="154.28999" fill="currentColor" />
                         <path fill="#fff" d="M154.88998 145.66999c-.03-1.26-.03-3.29.19-4.29 4.6-11.1 15.57-18.82 28.3-18.82h.41v58.3c0 .12-.03.78-.04.9-.54 16.46-14.01 29.7-30.59 29.7v27.08c21 0 39.17-11.27 49.29-28.07l.07-.11c2.9.45 5.86.75 8.9.75 31.95 0 57.81-26 57.81-57.81 0-30.87-24.37-56.46-55.1-57.81h-30.74c-17.18 0-32.61 7.64-43.22 19.63-10.59-11.92-25.86-19.59-43.02-19.59-31.86 0-57.77 25.91-57.77 57.77 0 31.86 25.91 57.77 57.77 57.77 31.86 0 57.77-25.91 57.77-57.77v-3.68c-.01.01-.02-3.31-.03-3.95zm-57.75 38.33c-16.92 0-30.69-13.77-30.69-30.69s13.77-30.69 30.69-30.69 30.69 13.77 30.69 30.69-13.77 30.69-30.69 30.69zm142.96-19.87c-4.33 11.64-15.57 19.9-28.7 19.9h-.54v-61.47h.54c13.13 0 24.37 8.26 28.7 19.9 1.35 3.25 2.03 6.91 2.03 10.83s-.67 7.59-2.03 10.84z" />
                     </svg>
