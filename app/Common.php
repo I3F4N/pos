@@ -10,6 +10,6 @@
  * This can be looked at as a `master helper` file that is
  * loaded early on, and may also contain additional functions
  * that you'd like to use throughout your entire application
- *
+ *8
  * @see: https://codeigniter.com/user_guide/extending/common.html
  */
